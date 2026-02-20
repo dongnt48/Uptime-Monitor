@@ -26,25 +26,30 @@
     </style>
 </head>
 
-<body class="font-sans antialiased bg-slate-900 text-slate-50">
-    <div class="min-h-screen bg-slate-900">
-        @include('layouts.navigation')
+<body class="font-sans antialiased bg-gray-50 text-gray-900">
+    <div class="flex min-h-screen">
+        <!-- Sidebar (Desktop) -->
+        @include('layouts.sidebar')
 
-        <!-- Page Heading -->
-        @isset($header)
-            <header class="bg-slate-800/50 border-b border-slate-800 backdrop-blur-sm sticky top-0 z-40">
-                <div class="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
-        @endisset
+        <div class="flex-1 flex flex-col min-w-0">
+            @include('layouts.navigation')
 
-        <!-- Page Content -->
-        <main class="py-12">
-            {{ $slot }}
-        </main>
+            <!-- Page Heading -->
+            @isset($header)
+                <header class="bg-white border-b border-gray-100">
+                    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+                        {{ $header }}
+                    </div>
+                </header>
+            @endisset
 
-        @stack('scripts')
+            <!-- Page Content -->
+            <main class="flex-1 py-12">
+                {{ $slot }}
+            </main>
+
+            @include('layouts.footer')
+        </div>
     </div>
 </body>
 
