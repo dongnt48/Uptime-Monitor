@@ -12,11 +12,17 @@ return new class extends Migration {
     {
         Schema::create('monitors', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->string('name');
-            $table->string('url');
-            $table->string('status')->default('up');
-            $table->integer('last_response_time')->nullable();
-            $table->timestamp('last_checked_at')->nullable();
+            $table->string('host');
+            $table->integer('port')->nullable();
+            $table->enum('protocol', ['http', 'https', 'tcp', 'ping'])->default('https');
+            $table->boolean('is_active')->default(true);
+            $table->integer('expected_status_code')->default(200);
+            $table->integer('timeout')->default(5000); // ms
+            $table->enum('auth_type', ['none', 'basic', 'bearer'])->default('none');
+            $table->json('headers')->nullable();
+            $table->text('body')->nullable();
             $table->timestamps();
         });
     }
